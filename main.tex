@@ -37,9 +37,9 @@
 
 \section{Numerical method}
 
-The governing equations for fluid dynamics are the Navier–Stokes equations for incompressible flow, augmented by a subgrid-scale (SGS) model to account for the unresolved scales. In the large-eddy simulation (LES) framework, a filtering operator, denoted as $\widetilde{\bullet}$, is applied to project a field onto the LES grid. 
+The governing equations for fluid dynamics are the Navier–Stokes equations for incompressible flow, augmented by a subgrid-scale (\texttt{SGS}) model to account for the unresolved scales. In the large-eddy simulation (\texttt{LES}) framework, a filtering operator, denoted as $\widetilde{\bullet}$, is applied to project a field onto the \texttt{LES} grid. 
 %
-Using this notation, the evolution equations for the LES-resolved velocity field $\widetilde{\boldsymbol{u}}$ are expressed as:
+Using this notation, the evolution equations for the \texttt{LES}-resolved velocity field $\widetilde{\boldsymbol{u}}$ are expressed as:
 %
 %
 \begin{align}
@@ -49,7 +49,7 @@ Using this notation, the evolution equations for the LES-resolved velocity field
 + \nabla \cdot \widetilde{\boldsymbol{\tau}}^{\texttt{sgs}} + \boldsymbol{f}, \label{eq:momentum_conservation}
 \end{align}
 %
-where $\rho$, $\nu$, and $p$ represent the fluid density, kinematic viscosity, and pressure field respectively. The term $\boldsymbol{f}$ denotes the body force, while $\widetilde{\tau}_{ij}^{\texttt{sgs}}=\widetilde{u_iu_j}-\widetilde{u_i}\widetilde{u_j}$ corresponds to the SGS stress tensor.
+where $\rho$, $\nu$, and $p$ represent the fluid density, kinematic viscosity, and pressure field respectively. The term $\boldsymbol{f}$ denotes the body force, while $\widetilde{\tau}_{ij}^{\texttt{sgs}}=\widetilde{u_iu_j}-\widetilde{u_i}\widetilde{u_j}$ corresponds to the \texttt{SGS} stress tensor.
 %
 In this work, only the classical Boussinesq hypothesis \citep{boussinesq1877essai} is used for the models, which suggests that the sub-grid stress tensor can be formulated like the viscous stress tensor by using a turbulent viscosity $\nu_t$ such that:
 \begin{equation}
@@ -102,9 +102,9 @@ To address the dimensional inconsistency between the two-dimensional force per u
 %
 where $\delta$ represents the Dirac delta function. In this formulation, the superscript in $\boldsymbol{f}^i$ signifies the idealized case, where the body force is concentrated at the origin of the local reference frame (see Fig. ~\ref{fig:2dref}). 
 %
-When considering all cross-sections of a wing, the region of non-zero $\boldsymbol{f}^i$ forms a line in space, representing the theoretical limit of the actuator line method as the smearing parameter $\varepsilon$ approaches zero. Notably, while $\boldsymbol{f}^i$ is singular at the origin, its integral over the two-dimensional plane yields the expected value of $\boldsymbol{F}_{\texttt{2D}}/\rho$, thereby preserving consistency with the original force definition.
+When considering all cross-sections of a wing, the region of non-zero $\boldsymbol{f}^i$ forms a line in space, representing the theoretical limit of the actuator line method as the smearing parameter $\varepsilon$ approaches zero. Notably, while $\boldsymbol{f}^i$ is singular at the origin, its integral over the two-dimensional plane yields the expected value of $\boldsymbol{\text{F}}_{\texttt{2D}}/\rho$, thereby preserving consistency with the original force definition.
 %
-In the ALM, to avoid numerical problems related to singularities, the forces need to be distributed smoothly on several mesh points. This is usually performed by convolving the force with a regularization kernel. A common choice for the regularization kernel is a three-dimensional Gaussian kernel.  Considering the same constant Gaussian width in the three directions:
+In the \texttt{ALM}, to avoid numerical problems related to singularities, the forces need to be distributed smoothly on several mesh points. This is usually performed by convolving the force with a regularization kernel. A common choice for the regularization kernel is a three-dimensional Gaussian kernel.  Considering the same constant Gaussian width in the three directions:
 \begin{equation}
 \label{eq:eta3d}
 \eta_3(x,y,z) \defeq \frac{1}{\pi^{3/2}\varepsilon^3} \exp{\left(-\frac{x^2+y^2+z^2}{\varepsilon^2}\right)}=\eta(x)\eta(y)\eta(z)
@@ -117,7 +117,7 @@ The parameter $\varepsilon$ represents the projection width, defined as the maxi
 \[
 \varepsilon = \max \left[\frac{c}{4}, \frac{c C_{d}}{2}, 4 \sqrt[3]{\mathcal{V}_{\text{cell}}}\right],
 \]
-where $c$ denotes the chord length, $C_{d}$ is the drag coefficient, and $\mathcal{V}_{\text{cell}}$ represents the volume of a computational cell. The smeared force is
+where $\mathcal{V}_{\text{cell}}$ represents the volume of a computational cell. The smeared force is
 \begin{equation}
 \boldsymbol{f} = \boldsymbol{f}^i * \eta_3 .
 \label{eq:fconvoluted}
@@ -129,11 +129,11 @@ To account for tip effects and rotational influences, a tip correction function 
 \[
 f_{\text{tip}} = \frac{2}{\pi} \arccos \left[\exp \left(-g \frac{B(R-r)}{2 r \sin (\alpha+\beta)}\right)\right],
 \]
-where $\beta$ represents the pitch angle, encompassing both blade pitch and twist. The coefficient $g$ depends on various parameters, including the number of blades, the tip-speed ratio (TSR, denoted as $\lambda$), and the chord distribution. For simplicity, $g$ is expressed as a function of $B\lambda$:
+where $\beta$ represents the pitch angle, encompassing both blade pitch and twist. The coefficient $g$ depends on various parameters, including the number of blades, the tip-speed ratio (\texttt{TSR}, denoted as $\lambda$), and the chord distribution. For simplicity, $g$ is expressed as a function of $B\lambda$:
 \[
 g = \exp \left[-C_1\left(B \lambda - C_2\right)\right] + 0.1.
 \]
-The coefficients $C_1$ and $C_2$ were empirically determined using data from the NREL rotor at a wind speed of $10~\mathrm{m/s}$ \citep{shen2005tip}. Their respective values are $C_1 = 0.125$ and $C_2 = 21$. A small offset of $0.1$ is included to ensure consistency for cases with an infinite tip-speed ratio or an infinite number of blades. The function $g$ adjusts the influence of tip vortices on the pressure distribution near the blade tip region. While Shen's tip correction model is not a perfect physical representation for the ALM applications, it has demonstrated promising results for such implementations, as supported by several studies~\citep{shen2014study,yu2018study,papi2021development}.
+The coefficients $C_1$ and $C_2$ were empirically determined using data from the NREL rotor at a wind speed of $10~\mathrm{m/s}$ \citep{shen2005tip}. Their respective values are $C_1 = 0.125$ and $C_2 = 21$. A small offset of $0.1$ is included to ensure consistency for cases with an infinite tip-speed ratio or an infinite number of blades. The function $g$ adjusts the influence of tip vortices on the pressure distribution near the blade tip region. While Shen's tip correction model is not a perfect physical representation for the \texttt{ALM} applications, it has demonstrated promising results for such implementations, as supported by several studies~\citep{shen2014study,yu2018study,papi2021development}.
 
 
 \bibliographystyle{abbrvnat}
