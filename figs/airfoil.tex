@@ -1,11 +1,11 @@
 \begin{tikzpicture}
-  \def\c{8.5}
+  \def\c{7.5}
   \def\r{0.35*\c}
   % Some profiles look better when using plot[smooth]
-  \draw[scale=\c,rotate=-10] plot file{figs/naca4415.dat} -- cycle;
+  \draw[scale=\c,rotate=-10,fill=black!10] plot file{figs/naca4415.dat} -- cycle;
   \draw[rotate=-10,dashed] (-0.55*\c,0)--(0.85*\c,0);
-  \draw[->, >=stealth,gray] (-0.65*\c,0)--(0.85*\c,0) node[below,black]{\Large $z$};
-  \draw[->, >=stealth,gray] (0,-0.2*\c)--(0,0.55*\c) node[left,black]{\Large $y$};
+  \draw[->, >=stealth,olive] (-0.65*\c,0)--(0.85*\c,0) node[below,black]{\Large $z$};
+  \draw[->, >=stealth,olive] (0,-0.2*\c)--(0,0.55*\c) node[left,black]{\Large $y$};
   \draw[->, >=stealth,gray] (0,0)--(0.7*\c,0) node[below]{\Large $u_z$};
   \draw[->, >=stealth,gray] (0,0)--(0,0.2*\c) node[right]{\Large $u_y$};
   \draw[->, >=stealth,gray] (0,0)--(0.7*\c,0.2*\c) node[right]{\Large $u_{r}$};

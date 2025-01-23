@@ -113,15 +113,7 @@ where
 \begin{equation}
 \eta(x) \defeq \frac{1}{\pi^{1/2}\varepsilon} \exp{\left(-\frac{x^2}{\varepsilon^2}\right)}
 \end{equation}
-The parameter $\varepsilon$ represents the projection width, defined as the maximum value among the chord factor, drag factor, and mesh factor, expressed as:
-\[
-\varepsilon = \max \left[\frac{c}{4}, \frac{c C_{d}}{2}, 4 \sqrt[3]{\mathcal{V}_{\text{cell}}}\right],
-\]
-where $\mathcal{V}_{\text{cell}}$ represents the volume of a computational cell. The smeared force is
-\begin{equation}
-\boldsymbol{f} = \boldsymbol{f}^i * \eta_3 .
-\label{eq:fconvoluted}
-\end{equation}
+The parameter $\varepsilon$ represents mollifier width parameter.
 %
 The convolution operation in the actuator line method is presented here using an idealized body force represented by Dirac delta functions as an intermediate step. Although this approach may initially appear unconventional, it is mathematically equivalent to the classical formulations~\citep{sorensen2002numerical, mikkelsen2003actuator}, which rely on one-dimensional integrals. This formalism, previously employed by \cite{martinez2019filtered}, establishes a rigorous connection between the two-dimensional force distribution and the three-dimensional convolution process.
 %
@@ -135,6 +127,16 @@ g = \exp \left[-C_1\left(B \lambda - C_2\right)\right] + 0.1.
 \]
 The coefficients $C_1$ and $C_2$ were empirically determined using data from the NREL rotor at a wind speed of $10~\mathrm{m/s}$ \citep{shen2005tip}. Their respective values are $C_1 = 0.125$ and $C_2 = 21$. A small offset of $0.1$ is included to ensure consistency for cases with an infinite tip-speed ratio or an infinite number of blades. The function $g$ adjusts the influence of tip vortices on the pressure distribution near the blade tip region. While Shen's tip correction model is not a perfect physical representation for the \texttt{ALM} applications, it has demonstrated promising results for such implementations, as supported by several studies~\citep{shen2014study,yu2018study,papi2021development}.
 
+
+\section{Solver verification and validation}
+
+The \texttt{NREL} 5-\texttt{MW} wind turbine is a widely recognized benchmark model, developed by the National Renewable Energy Laboratory to represent utility-scale turbines suitable for floating offshore installations.
+%
+This variable-speed turbine employs a variable-pitch-to-feather control system and features a classic three-blade upwind design.
+%
+Its rotor has a diameter of approximately 126 meters, with a hub height of nearly 90 meters. The blade profiles consist of Delft University and \texttt{NACA} 64xxx airfoils, as detailed in Fig. 1.
+%
+Additional specifications are summarized in Table 1.
 
 \bibliographystyle{abbrvnat}
 
